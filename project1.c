@@ -19,10 +19,10 @@ int main(int argc, char** argv)
 {
     int input;
     int lineNumber = 0;
-    FILE * file = fopen("D:/Users/kyle_/CLionProjects/project1/test", "r");
-    if(!file){
-        //handle the error
-        printf("something went wrong: %s", strerror(errno));
+    FILE * file;
+
+    if(!(file = fopen("D:/Users/kyle_/CLionProjects/project1/test", "r"))){
+        printf("Whoopsie: %s\n", strerror(errno));
         exit(1);
     }
 
