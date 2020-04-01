@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 /*
  *  Project 1
@@ -10,34 +11,41 @@
 
 #define TRUE 1
 #define FALSE 0
-#define BUFF_SIZE 10
 
 /* unsigned char */
 typedef unsigned char byte;
 
 int main(int argc, char** argv)
 {
-    byte input[BUFF_SIZE] = {0};
-    int line[4] = {0};
+    int input;
     int lineNumber = 0;
-    FILE * file;
+    FILE * file = fopen("D:/Users/kyle_/CLionProjects/project1/test", "r");
+    if(!file){
+        //handle the error
+        printf("something went wrong: %s", strerror(errno));
+        exit(1);
+    }
 
-    file = fopen("test.txt", "r");
-
-    while (((fgets(input, BUFF_SIZE, file)) != NULL))
+    while (((input = fgetc(file)) != EOF))
     {
-        if (lineNumber == 0)
-        {
-            // # of processes available to run, but in this case it is always 1
-            ++lineNumber;
-        }
-        else if (lineNumber == 1)
+        if (input == '\n' && lineNumber < 2)
         {
             ++lineNumber;
         }
         else
         {
-            printf("%s", input);
+            if (lineNumber == 0)
+            {
+                // # of processes available to run, but in this case it is always 1
+            }
+            else if (lineNumber == 1)
+            {
+
+            }
+            else
+            {
+                printf("%c", input);
+            }
         }
     }
     fclose(file);
