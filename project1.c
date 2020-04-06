@@ -17,16 +17,22 @@ typedef unsigned char byte;
 
 int main(int argc, char** argv)
 {
-    int input;
+    byte input;
     int lineNumber = 0;
     FILE * file;
+    int execElems = 0;
+    int numInstr = 0;
+    int flag = FALSE;
+    int pid;
+    int burst;
+    int priority;
 
-    if(!(file = fopen("D:/Users/kyle_/CLionProjects/project1/test", "r"))){
+    if(!(file = fopen("test.txt", "r"))){
         printf("Whoopsie: %s\n", strerror(errno));
         exit(1);
     }
 
-    while (((input = fgetc(file)) != EOF))
+    while (((input = fgetc(file)) != (byte)EOF))
     {
         if (input == '\n' && lineNumber < 2)
         {
@@ -40,7 +46,25 @@ int main(int argc, char** argv)
             }
             else if (lineNumber == 1)
             {
-
+                if (flag == FALSE)
+                {
+                    execElems = atoi(&input);
+                    while (((input = fgetc(file)) != ' '))
+                    {
+                        execElems = (execElems * 10) + atoi(&input);
+                    }
+                    flag = TRUE;
+                }
+                else
+                {
+                    numInstr = atoi(&input);
+                    while (((input = fgetc(file)) != '\n'))
+                    {
+                        numInstr = (numInstr * 10) + atoi(&input);
+                    }
+                    flag = FALSE;
+                    ++lineNumber;
+                }
             }
             else
             {
