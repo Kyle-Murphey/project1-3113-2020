@@ -107,7 +107,7 @@ int main(int argc, char** argv)
     int numInstr = 0;
     int flag = FALSE;
 
-    if(!(file = fopen("test.txt", "r"))){
+    if(!(file = fopen(*argv, "r"))){
         printf("Whoopsie: %s\n", strerror(errno));
         exit(1);
     }
@@ -201,7 +201,7 @@ int main(int argc, char** argv)
                 calculate(numInstr,execElems, elements, &nvcSwitch, &vcSwitch, &waitingTime, &turnaround, &responseTime, &throughput);
 
 
-                printf("%d\n%d\n100.00\n%.2f\n%.2f\n%.2f\n%.2f", vcSwitch, nvcSwitch, throughput, turnaround, waitingTime, responseTime);
+                printf("%d\n%d\n100.00\n%.2f\n%.2f\n%.2f\n%.2f\n", vcSwitch, nvcSwitch, throughput, turnaround, waitingTime, responseTime);
             }
         }
     }
