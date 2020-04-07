@@ -107,7 +107,7 @@ int main(int argc, char** argv)
     int numInstr = 0;
     int flag = FALSE;
 
-    if(!(file = fopen(*argv, "r"))){
+    if(!(file = fopen(argv[1], "r"))){
         printf("Whoopsie: %s\n", strerror(errno));
         exit(1);
     }
